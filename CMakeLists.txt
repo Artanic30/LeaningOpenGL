@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(test main.cpp glad.c)
 add_executable(1.1 HelloTriangle/HelloTriangle_1.cpp glad.c)
 add_executable(1.2 HelloTriangle/HelloTriangle_2.cpp glad.c)
+add_executable(1.3 HelloTriangle/HelloTriangle_3.cpp glad.c)
+
 
 
 # specify the search location
@@ -44,9 +46,12 @@ link_directories(${_glfw3_LIB_SEARCH_DIRS})
 target_link_libraries(test ${GLFW3_LIBRARY})
 target_link_libraries(1.1 ${GLFW3_LIBRARY})
 target_link_libraries(1.2 ${GLFW3_LIBRARY})
+target_link_libraries(1.3 ${GLFW3_LIBRARY})
+
 
 
 # include all header file directories
+link_libraries(test ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(1.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(1.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-link_libraries(test ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(1.3 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})

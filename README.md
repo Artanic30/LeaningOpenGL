@@ -1,4 +1,8 @@
-# LeaningOpenGL
+# LearningOpenGL
+
+## Introduction
+
+This repo stores my answers to the exercises of the tutorial of https://learnopengl-cn.github.io/
 
 ## OpenGL Environments
 
