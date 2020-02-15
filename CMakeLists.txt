@@ -12,12 +12,17 @@ add_executable(test main.cpp glad.c)
 add_executable(1.1 HelloTriangle/HelloTriangle_1.cpp glad.c)
 add_executable(1.2 HelloTriangle/HelloTriangle_2.cpp glad.c)
 add_executable(1.3 HelloTriangle/HelloTriangle_3.cpp glad.c)
+add_executable(2.1 Shader/Shader_1.cpp glad.c)
+add_executable(2.2 Shader/Shader_2/Shader_2.cpp glad.c)
+add_executable(2.3 Shader/Shader_3/Shader_3.cpp glad.c)
+
 
 
 
 # specify the search location
 set( _glfw3_HEADER_SEARCH_DIRS "/usr/local/include")
 set( _glfw3_LIB_SEARCH_DIRS "/usr/local/lib")
+set( glm_dirs "./glm")
 
 set( _glfw3_ENV_ROOT $ENV{GLFW3_ROOT} )
 if( NOT GLFW3_ROOT AND _glfw3_ENV_ROOT )
@@ -38,6 +43,8 @@ FIND_LIBRARY(GLFW3_LIBRARY NAMES libglfw.3.4.dylib PATHS ${_glfw3_LIB_SEARCH_DIR
 
 #include header file directory
 include_directories(${GLFW3_INCLUDE_DIR})
+include_directories(${glm_dirs})
+include_directories("./")
 
 #include library file directory
 link_directories(${_glfw3_LIB_SEARCH_DIRS})
@@ -47,6 +54,9 @@ target_link_libraries(test ${GLFW3_LIBRARY})
 target_link_libraries(1.1 ${GLFW3_LIBRARY})
 target_link_libraries(1.2 ${GLFW3_LIBRARY})
 target_link_libraries(1.3 ${GLFW3_LIBRARY})
+target_link_libraries(2.1 ${GLFW3_LIBRARY})
+target_link_libraries(2.2 ${GLFW3_LIBRARY})
+target_link_libraries(2.3 ${GLFW3_LIBRARY})
 
 
 
@@ -55,3 +65,6 @@ link_libraries(test ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DI
 link_libraries(1.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(1.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(1.3 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(2.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(2.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(2.3 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})

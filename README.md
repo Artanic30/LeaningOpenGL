@@ -74,3 +74,8 @@ Main steps follows: https://learnopengl-cn.github.io/
 	put glad file into /usr/local/include ( header file for glad)
 	put glad.c file inside Project
 	add glad.c to cmake file (inside add_executable)
+	
+## GLM
+    Down load the source code from https://github.com/g-truc/glm
+    place the glm directory in the root directory of your project
+    include the directory in CMakeLists
