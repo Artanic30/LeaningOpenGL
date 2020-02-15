@@ -1,1 +1,1 @@
-# LeaningOpenGL
+# LearningOpenGL
