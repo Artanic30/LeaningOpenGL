@@ -15,6 +15,8 @@ add_executable(1.3 HelloTriangle/HelloTriangle_3.cpp glad.c)
 add_executable(2.1 Shader/Shader_1.cpp glad.c)
 add_executable(2.2 Shader/Shader_2/Shader_2.cpp glad.c)
 add_executable(2.3 Shader/Shader_3/Shader_3.cpp glad.c)
+add_executable(3.1 Texture/sample/sample.cpp glad.c stb_image.h)
+
 
 
 
@@ -57,6 +59,8 @@ target_link_libraries(1.3 ${GLFW3_LIBRARY})
 target_link_libraries(2.1 ${GLFW3_LIBRARY})
 target_link_libraries(2.2 ${GLFW3_LIBRARY})
 target_link_libraries(2.3 ${GLFW3_LIBRARY})
+target_link_libraries(3.1 ${GLFW3_LIBRARY})
+
 
 
 
@@ -68,3 +72,4 @@ link_libraries(1.3 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIR
 link_libraries(2.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(2.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(2.3 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(3.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
