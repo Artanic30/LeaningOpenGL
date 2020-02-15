@@ -1,5 +1,4 @@
 # LearningOpenGL
-<<<<<<< HEAD
 
 ## Introduction
 
@@ -75,5 +74,3 @@ Main steps follows: https://learnopengl-cn.github.io/
 	put glad file into /usr/local/include ( header file for glad)
 	put glad.c file inside Project
 	add glad.c to cmake file (inside add_executable)
-=======
->>>>>>> 39bf5b139c60ec7046e40fdef7de3e17711f8131
