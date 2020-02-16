@@ -8,8 +8,8 @@
 
 #include <iostream>
 
-#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/sample/shader.vs"
-#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/sample/shader.fs"
+#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/Texture_1/shader.vs"
+#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/Texture_1/shader.fs"
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/awesomeface.png"
 

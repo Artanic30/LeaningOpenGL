@@ -8,8 +8,8 @@
 
 #include <iostream>
 
-#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/sample/shader.vs"
-#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/sample/shader.fs"
+#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/Texture_4/shader.vs"
+#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/Texture_4/shader.fs"
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/awesomeface.png"
 
@@ -21,6 +21,8 @@ void processInput(GLFWwindow *window);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+float myMix = 0.2;
 
 // the three arguments here decide the position of vertex and the last one decide the size of the coordinate system
 
@@ -157,6 +159,7 @@ int main()
     // or set it via the texture class
     ourShader.setInt("texture1", 0);
     ourShader.setInt("texture2", 1);
+    ourShader.setFloat("myMix", 0.0);
 
     // render loop
     // -----------
@@ -177,6 +180,7 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
 
+        ourShader.setFloat("myMix", myMix);
 
         ourShader.use();
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
@@ -208,6 +212,18 @@ void processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+    {
+        myMix += 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
+        if(myMix >= 1.0f)
+            myMix = 1.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+    {
+        myMix -= 0.001f; // change this value accordingly (might be too slow or too fast based on system hardware)
+        if (myMix <= 0.0f)
+            myMix = 0.0f;
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
