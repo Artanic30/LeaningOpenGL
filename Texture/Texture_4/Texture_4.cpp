@@ -10,8 +10,8 @@
 
 #define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/Texture_4/shader.vs"
 #define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/Texture_4/shader.fs"
-#define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/container.jpg"
-#define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/awesomeface.png"
+#define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
+#define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
 
 
 

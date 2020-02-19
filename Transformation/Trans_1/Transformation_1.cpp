@@ -1,6 +1,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <shader_c.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // order matters
 #define STB_IMAGE_IMPLEMENTATION
@@ -8,8 +11,8 @@
 
 #include <iostream>
 
-#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/sample/shader.vs"
-#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Texture/sample/shader.fs"
+#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Transformation/Trans_1/shader.vs"
+#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Transformation/Trans_1/shader.fs"
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
 
@@ -177,8 +180,14 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
 
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
 
         ourShader.use();
+
+        ourShader.setMat4("transMatrix", trans);
+
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
@@ -198,7 +207,6 @@ int main()
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
-    glfwTerminate();
     return 0;
 }
 

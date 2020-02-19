@@ -20,6 +20,12 @@ add_executable(3.2 Texture/Texture_1/Texture_1.cpp glad.c stb_image.h)
 add_executable(3.3 Texture/Texture_2/Texture_2.cpp glad.c stb_image.h)
 add_executable(3.4 Texture/Texture_3/Texture_3.cpp glad.c stb_image.h)
 add_executable(3.5 Texture/Texture_4/Texture_4.cpp glad.c stb_image.h)
+add_executable(4.1 Transformation/sample/sample.cpp glad.c stb_image.h)
+add_executable(4.2 Transformation/Trans_1/Transformation_1.cpp glad.c stb_image.h)
+add_executable(4.3 Transformation/Trans_2/Transformation_2.cpp glad.c stb_image.h)
+add_executable(5.1 CoordinateSystem/sample/sample.cpp glad.c stb_image.h)
+add_executable(5.2 CoordinateSystem/coordinate_1/coordinate_1.cpp glad.c stb_image.h)
+add_executable(6.1 Camera/sample/sample.cpp glad.c stb_image.h)
 
 
 
@@ -57,21 +63,27 @@ link_directories(${_glfw3_LIB_SEARCH_DIRS})
 #link library file
 target_link_libraries(test ${GLFW3_LIBRARY})
 
-foreach(i RANGE 1 3)
+foreach(i RANGE 1 4)
     foreach(j RANGE 1 3)
         target_link_libraries(${i}.${j} ${GLFW3_LIBRARY})
     endforeach()
 endforeach()
 target_link_libraries(3.4 ${GLFW3_LIBRARY})
 target_link_libraries(3.5 ${GLFW3_LIBRARY})
+target_link_libraries(5.1 ${GLFW3_LIBRARY})
+target_link_libraries(5.2 ${GLFW3_LIBRARY})
+target_link_libraries(6.1 ${GLFW3_LIBRARY})
 
 
-        # include all header file directories
+# include all header file directories
 link_libraries(test ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-foreach(i RANGE 1 3)
+foreach(i RANGE 1 4)
     foreach(j RANGE 1 3)
         link_libraries(${i}.${j} ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
     endforeach()
 endforeach()
 link_libraries(3.4 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
 link_libraries(3.5 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(5.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(5.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+link_libraries(6.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
