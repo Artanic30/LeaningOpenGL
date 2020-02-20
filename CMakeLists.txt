@@ -27,6 +27,7 @@ add_executable(5.1 CoordinateSystem/sample/sample.cpp glad.c stb_image.h)
 add_executable(5.2 CoordinateSystem/coordinate_1/coordinate_1.cpp glad.c stb_image.h)
 add_executable(6.1 Camera/sample/sample.cpp glad.c stb_image.h camera.h)
 add_executable(6.2 Camera/Camera_1/camera_1.cpp glad.c stb_image.h camera.h)
+add_executable(7.1 Colors/sample/sample.cpp glad.c stb_image.h camera.h)
 
 
 
@@ -76,19 +77,4 @@ target_link_libraries(5.1 ${GLFW3_LIBRARY})
 target_link_libraries(5.2 ${GLFW3_LIBRARY})
 target_link_libraries(6.1 ${GLFW3_LIBRARY})
 target_link_libraries(6.2 ${GLFW3_LIBRARY})
-
-
-
-# include all header file directories
-link_libraries(test ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-foreach(i RANGE 1 4)
-    foreach(j RANGE 1 3)
-        link_libraries(${i}.${j} ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-    endforeach()
-endforeach()
-link_libraries(3.4 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-link_libraries(3.5 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-link_libraries(5.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-link_libraries(5.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-link_libraries(6.1 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
-link_libraries(6.2 ${GLFW3_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLUT_INCLUDE_DIRS})
+target_link_libraries(7.1 ${GLFW3_LIBRARY})
