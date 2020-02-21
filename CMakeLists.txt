@@ -18,8 +18,8 @@ add_executable(2.3 Shader/Shader_3/Shader_3.cpp glad.c)
 add_executable(3.1 Texture/sample/sample.cpp glad.c stb_image.h)
 add_executable(3.2 Texture/Texture_1/Texture_1.cpp glad.c stb_image.h)
 add_executable(3.3 Texture/Texture_2/Texture_2.cpp glad.c stb_image.h)
-add_executable(3.4 Texture/Texture_3/Texture_3.cpp glad.c stb_image.h)
-add_executable(3.5 Texture/Texture_4/Texture_4.cpp glad.c stb_image.h)
+add_executable(5.3 Texture/Texture_3/Texture_3.cpp glad.c stb_image.h)
+add_executable(6.3 Texture/Texture_4/Texture_4.cpp glad.c stb_image.h)
 add_executable(4.1 Transformation/sample/sample.cpp glad.c stb_image.h)
 add_executable(4.2 Transformation/Trans_1/Transformation_1.cpp glad.c stb_image.h)
 add_executable(4.3 Transformation/Trans_2/Transformation_2.cpp glad.c stb_image.h)
@@ -28,6 +28,10 @@ add_executable(5.2 CoordinateSystem/coordinate_1/coordinate_1.cpp glad.c stb_ima
 add_executable(6.1 Camera/sample/sample.cpp glad.c stb_image.h camera.h)
 add_executable(6.2 Camera/Camera_1/camera_1.cpp glad.c stb_image.h camera.h)
 add_executable(7.1 Colors/sample/sample.cpp glad.c stb_image.h camera.h)
+add_executable(7.2 BasicLighting/sample/sample.cpp glad.c stb_image.h camera.h)
+add_executable(7.3 BasicLighting/lighting_1/lighting_1.cpp glad.c stb_image.h camera.h)
+
+
 
 
 
@@ -66,15 +70,8 @@ link_directories(${_glfw3_LIB_SEARCH_DIRS})
 #link library file
 target_link_libraries(test ${GLFW3_LIBRARY})
 
-foreach(i RANGE 1 4)
+foreach(i RANGE 1 7)
     foreach(j RANGE 1 3)
         target_link_libraries(${i}.${j} ${GLFW3_LIBRARY})
     endforeach()
 endforeach()
-target_link_libraries(3.4 ${GLFW3_LIBRARY})
-target_link_libraries(3.5 ${GLFW3_LIBRARY})
-target_link_libraries(5.1 ${GLFW3_LIBRARY})
-target_link_libraries(5.2 ${GLFW3_LIBRARY})
-target_link_libraries(6.1 ${GLFW3_LIBRARY})
-target_link_libraries(6.2 ${GLFW3_LIBRARY})
-target_link_libraries(7.1 ${GLFW3_LIBRARY})
