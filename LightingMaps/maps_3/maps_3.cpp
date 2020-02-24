@@ -13,14 +13,15 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/shader.vs"
-#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/shader.fs"
+#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_3/shader.vs"
+#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_3/shader.fs"
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
 #define image_path3 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container2.png"
 #define image_path4 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container2_specular.png"
-#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.vs"
-#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.fs"
+#define image_path5 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/matrix.jpg"
+#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_3/lampShader.vs"
+#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_3/lampShader.fs"
 
 
 
@@ -167,6 +168,7 @@ int main()
 
     unsigned int diffuseMap = loadTexture((image_path3));
     unsigned int specularMap = loadTexture((image_path4));
+    unsigned int specialMap = loadTexture((image_path5));
 
     glm::mat4 model = glm::mat4(1.0f);
 
@@ -195,6 +197,7 @@ int main()
 
     ourShader.setInt("material.diffuse", 0);
     ourShader.setInt("material.specular", 1);
+    ourShader.setInt("material.special", 2);
 
     lampShader.use();
 
@@ -236,6 +239,8 @@ int main()
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specularMap);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, specialMap);
 
         glBindVertexArray(VAO);
 

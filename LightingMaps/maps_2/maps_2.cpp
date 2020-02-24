@@ -13,14 +13,15 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/shader.vs"
-#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/shader.fs"
+#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_2/shader.vs"
+#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_2/shader.fs"
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
 #define image_path3 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container2.png"
 #define image_path4 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container2_specular.png"
-#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.vs"
-#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.fs"
+#define image_path5 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/lighting_maps_specular_color.png"
+#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_2/lampShader.vs"
+#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_2/lampShader.fs"
 
 
 
@@ -166,7 +167,7 @@ int main()
     glEnableVertexAttribArray(0);
 
     unsigned int diffuseMap = loadTexture((image_path3));
-    unsigned int specularMap = loadTexture((image_path4));
+    unsigned int specularMap = loadTexture((image_path5));
 
     glm::mat4 model = glm::mat4(1.0f);
 
