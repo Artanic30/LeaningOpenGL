@@ -13,12 +13,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/BasicLighting/lighting_1/shader.vs"
-#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/BasicLighting/lighting_1/shader.fs"
+#define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Material/sample/shader.vs"
+#define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Material/sample/shader.fs"
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
-#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/BasicLighting/lighting_1/lampShader.vs"
-#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/BasicLighting/lighting_1/lampShader.fs"
+#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Material/sample/lampShader.vs"
+#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/Material/sample/lampShader.fs"
 
 
 
@@ -161,8 +161,6 @@ int main()
 
     glm::mat4 model = glm::mat4(1.0f);
 
-    model = glm::rotate(model, glm::radians(30.0f), glm::vec3(1.0f, -0.8f, 0.0f));
-
     glm::mat4 view = glm::mat4(1.0f);
     // 注意，我们将矩阵向我们要进行移动场景的反方向移动。
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
@@ -176,10 +174,17 @@ int main()
     ourShader.setMat4("view", view);
     ourShader.setMat4("model", model);
     ourShader.setMat4("projection", projection);
-    ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-    ourShader.setVec3("lightColor",  1.0f, 1.0f, 1.0f);
     ourShader.setVec3("lightPos", lightPos);
     ourShader.setVec3("viewPos", camera.Position);
+
+    ourShader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
+    ourShader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
+    ourShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+    ourShader.setFloat("material.shininess", 32.0f);
+
+    ourShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
+    ourShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
+    ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
     lampShader.use();
 
@@ -191,7 +196,6 @@ int main()
     lampShader.setMat4("model", model);
 
     glEnable(GL_DEPTH_TEST);
-    glm::mat4 lightView = glm::mat4(1.0f);
 
     // render loop
     // -----------
@@ -210,10 +214,14 @@ int main()
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        float radios = 2.0f;
-        float x_pos = radios * sin(currentFrame);
-        float z_pos = radios * cos(currentFrame);
-        lightPos = glm::vec3(x_pos, 2.0f, z_pos);
+        glm::vec3 lightColor;
+        lightColor.x = sin(glfwGetTime() * 2.0f);
+        lightColor.y = sin(glfwGetTime() * 0.7f);
+        lightColor.z = sin(glfwGetTime() * 1.3f);
+
+        glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // 降低影响
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // 很低的影响
+
 
         glBindVertexArray(VAO);
         ourShader.use();
@@ -222,19 +230,18 @@ int main()
         view = camera.GetViewMatrix();
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
-        ourShader.setVec3("lightPos", lightPos);
         ourShader.setVec3("viewPos", camera.Position);
+
+        ourShader.setVec3("light.ambient", ambientColor);
+        ourShader.setVec3("light.diffuse", diffuseColor);
 
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         glBindVertexArray(lightVAO);
         lampShader.use();
 
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f));
+        view = camera.GetViewMatrix();
         lampShader.setMat4("view", view);
-        lampShader.setMat4("model", model);
         lampShader.setMat4("projection", projection);
 
         glDrawArrays(GL_TRIANGLES, 0, 36);

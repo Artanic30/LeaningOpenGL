@@ -30,11 +30,8 @@ add_executable(6.2 Camera/Camera_1/camera_1.cpp glad.c stb_image.h camera.h)
 add_executable(7.1 Colors/sample/sample.cpp glad.c stb_image.h camera.h)
 add_executable(7.2 BasicLighting/sample/sample.cpp glad.c stb_image.h camera.h)
 add_executable(7.3 BasicLighting/lighting_1/lighting_1.cpp glad.c stb_image.h camera.h)
-
-
-
-
-
+add_executable(8.1 Material/sample/sample.cpp glad.c stb_image.h camera.h)
+add_executable(8.2 LightingMaps/sample/sample.cpp glad.c stb_image.h camera.h)
 
 
 # specify the search location
@@ -75,3 +72,7 @@ foreach(i RANGE 1 7)
         target_link_libraries(${i}.${j} ${GLFW3_LIBRARY})
     endforeach()
 endforeach()
+target_link_libraries(8.1 ${GLFW3_LIBRARY})
+target_link_libraries(8.2 ${GLFW3_LIBRARY})
+
+
