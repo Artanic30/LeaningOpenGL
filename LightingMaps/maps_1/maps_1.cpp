@@ -15,14 +15,13 @@
 
 #define vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/shader.vs"
 #define fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/shader.fs"
+#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.vs"
+#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.fs"
+
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
 #define image_path3 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container2.png"
 #define image_path4 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container2_specular.png"
-#define lamp_vertexShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.vs"
-#define lamp_fragmentShader_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/LightingMaps/maps_1/lampShader.fs"
-
-
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
