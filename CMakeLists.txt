@@ -38,6 +38,8 @@ add_executable(9.2 LightingMaps/maps_3/maps_3.cpp glad.c stb_image.h camera.h)
 add_executable(9.3 LightCaster/flashLight/flashLight.cpp glad.c stb_image.h camera.h)
 add_executable(10.1 LightCaster/pointLight/pointLight.cpp glad.c stb_image.h camera.h)
 add_executable(10.2 LightCaster/parallel/parallel.cpp glad.c stb_image.h camera.h)
+add_executable(10.3 MultipleLights/sample/sample.cpp glad.c stb_image.h camera.h)
+
 
 
 # specify the search location
@@ -73,11 +75,9 @@ link_directories(${_glfw3_LIB_SEARCH_DIRS})
 #link library file
 target_link_libraries(test ${GLFW3_LIBRARY})
 
-foreach(i RANGE 1 9)
+foreach(i RANGE 1 10)
     foreach(j RANGE 1 3)
         target_link_libraries(${i}.${j} ${GLFW3_LIBRARY})
     endforeach()
 endforeach()
-target_link_libraries(10.1 ${GLFW3_LIBRARY})
-target_link_libraries(10.2 ${GLFW3_LIBRARY})
 
