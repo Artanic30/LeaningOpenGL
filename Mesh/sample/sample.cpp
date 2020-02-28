@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <utility>
 
 #ifdef WINDOWS
 #include <direct.h>
@@ -29,7 +30,7 @@ void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 unsigned int loadTexture(const char *path);
-std::string GetCurrentWorkingDir( void );
+std::string GetCurrentWorkingDir();
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -44,6 +45,19 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 
+class Mesh;
+
+struct Vertex {
+    glm::vec3 Position;
+    glm::vec3 Normal;
+    glm::vec2 TexCoords;
+};
+
+struct Texture {
+    unsigned int id;
+    std::string type;
+};
+
 
 // the three arguments here decide the position of vertex and the last one decide the size of the coordinate system
 
@@ -51,7 +65,7 @@ int main()
 {
     std::string root_dir = GetCurrentWorkingDir();
     int len = root_dir.length();
-    root_dir = root_dir.substr(0, len - 18) +  "/MultipleLights/sample/";
+    root_dir = root_dir.substr(0, len - 18) +  "/LightCaster/parallel/";
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -98,7 +112,6 @@ int main()
             -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
             0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-
             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
             -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
             -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
@@ -152,13 +165,6 @@ int main()
             glm::vec3(-1.3f,  1.0f, -1.5f)
     };
 
-    glm::vec3 pointLightPositions[] = {
-            glm::vec3( 0.7f,  0.2f,  2.0f),
-            glm::vec3( 2.3f, -3.3f, -4.0f),
-            glm::vec3(-4.0f,  2.0f, -12.0f),
-            glm::vec3( 0.0f,  0.0f, -3.0f)
-    };
-
     unsigned int VBO, VAO;
     // the first argument is id
     glGenVertexArrays(1, &VAO);
@@ -209,51 +215,14 @@ int main()
 
     ourShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
     ourShader.setFloat("material.shininess", 64.0f);
+
+    ourShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+    ourShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
+    ourShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
+    ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
     ourShader.setInt("material.diffuse", 0);
     ourShader.setInt("material.specular", 1);
-
-    ourShader.setVec3("spotLight.ambient",  0.2f, 0.2f, 0.2f);
-    ourShader.setVec3("spotLight.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
-    ourShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
-    ourShader.setFloat("spotLight.cutOff",   glm::cos(glm::radians(12.5f)));
-
-    ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-    ourShader.setVec3("dirLight.ambient",  0.2f, 0.2f, 0.2f);
-    ourShader.setVec3("dirLight.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
-    ourShader.setVec3("dirLight.specular", 1.0f, 1.0f, 1.0f);
-
-    // point light 1
-    ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-    ourShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-    ourShader.setFloat("pointLights[0].constant", 1.0f);
-    ourShader.setFloat("pointLights[0].linear", 0.09);
-    ourShader.setFloat("pointLights[0].quadratic", 0.032);
-    // point light 2
-    ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-    ourShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-    ourShader.setFloat("pointLights[1].constant", 1.0f);
-    ourShader.setFloat("pointLights[1].linear", 0.09);
-    ourShader.setFloat("pointLights[1].quadratic", 0.032);
-    // point light 3
-    ourShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-    ourShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-    ourShader.setFloat("pointLights[2].constant", 1.0f);
-    ourShader.setFloat("pointLights[2].linear", 0.09);
-    ourShader.setFloat("pointLights[2].quadratic", 0.032);
-    // point light 4
-    ourShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-    ourShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-    ourShader.setFloat("pointLights[3].constant", 1.0f);
-    ourShader.setFloat("pointLights[3].linear", 0.09);
-    ourShader.setFloat("pointLights[3].quadratic", 0.032);
 
     lampShader.use();
 
@@ -291,9 +260,6 @@ int main()
         ourShader.setMat4("projection", projection);
         ourShader.setVec3("viewPos", camera.Position);
 
-        ourShader.setVec3("spotLight.position", camera.Position);
-        ourShader.setVec3("spotLight.direction", camera.Front);
-
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
         glActiveTexture(GL_TEXTURE1);
@@ -318,15 +284,6 @@ int main()
         view = camera.GetViewMatrix();
         lampShader.setMat4("view", view);
         lampShader.setMat4("projection", projection);
-
-        for (auto pointLightPosition : pointLightPositions)
-        {
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, pointLightPosition);
-            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-            lampShader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
 
         // glBindVertexArray(0); // no need to unbind it every time
 
@@ -434,9 +391,87 @@ unsigned int loadTexture(char const * path)
     return textureID;
 }
 
-std::string GetCurrentWorkingDir( void ) {
+std::string GetCurrentWorkingDir() {
     char buff[FILENAME_MAX];
     GetCurrentDir( buff, FILENAME_MAX );
     std::string current_working_dir(buff);
     return current_working_dir;
+}
+
+class Mesh {
+public:
+    /*  网格数据  */
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Texture> textures;
+    /*  函数  */
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    void Draw(Shader shader);
+private:
+    /*  渲染数据  */
+    unsigned int VAO{}, VBO{}, EBO{};
+    /*  函数  */
+    void setupMesh();
+};
+
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+{
+    this->vertices = std::move(vertices);
+    this->indices = std::move(indices);
+    this->textures = std::move(textures);
+    setupMesh();
+}
+
+void Mesh::setupMesh()
+{
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+                 &indices[0], GL_STATIC_DRAW);
+
+    // 顶点位置
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)nullptr);
+    // 顶点法线
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+    // 顶点纹理坐标
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+
+    glBindVertexArray(0);
+}
+
+void Mesh::Draw(Shader shader)
+{
+    unsigned int diffuseNr = 1;
+    unsigned int specularNr = 1;
+    for(unsigned int i = 0; i < textures.size(); i++)
+    {
+        glActiveTexture(GL_TEXTURE0 + i); // 在绑定之前激活相应的纹理单元
+        // 获取纹理序号（diffuse_textureN 中的 N）
+        std::string number;
+        std::string name = textures[i].type;
+        if(name == "texture_diffuse")
+            number = std::to_string(diffuseNr++);
+        else if(name == "texture_specular")
+            number = std::to_string(specularNr++);
+
+        shader.setFloat(std::string("material.").append(name + number), i);
+        glBindTexture(GL_TEXTURE_2D, textures[i].id);
+    }
+    glActiveTexture(GL_TEXTURE0);
+
+    // 绘制网格
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(0);
 }

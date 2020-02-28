@@ -3,6 +3,7 @@ project(test)
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
+find_package(Assimp REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 include_directories(${GLUT_INCLUDE_DIR})
 
@@ -39,7 +40,7 @@ add_executable(9.3 LightCaster/flashLight/flashLight.cpp glad.c stb_image.h came
 add_executable(10.1 LightCaster/pointLight/pointLight.cpp glad.c stb_image.h camera.h)
 add_executable(10.2 LightCaster/parallel/parallel.cpp glad.c stb_image.h camera.h)
 add_executable(10.3 MultipleLights/sample/sample.cpp glad.c stb_image.h camera.h)
-
+add_executable(11.1 Mesh/sample/sample.cpp glad.c stb_image.h camera.h)
 
 
 # specify the search location
@@ -80,4 +81,5 @@ foreach(i RANGE 1 10)
         target_link_libraries(${i}.${j} ${GLFW3_LIBRARY})
     endforeach()
 endforeach()
+target_link_libraries(11.1 ${GLFW3_LIBRARY})
 

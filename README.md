@@ -79,3 +79,10 @@ Main steps follows: https://learnopengl-cn.github.io/
     Down load the source code from https://github.com/g-truc/glm
     place the glm directory in the root directory of your project
     include the directory in CMakeLists
+    
+## Assimp
+    Using homebrew
+    reference:
+        https://brewinstall.org/install-assimp-on-mac-with-brew/
+        https://stackoverflow.com/questions/29910217/homebrew-installation-on-mac-os-x-failed-to-connect-to-raw-githubusercontent-com
+    
