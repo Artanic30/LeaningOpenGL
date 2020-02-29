@@ -96,7 +96,6 @@ void Mesh::Draw(Shader shader)
             number = std::to_string(diffuseNr++);
         else if(name == "texture_specular")
             number = std::to_string(specularNr++);
-
         shader.setFloat(std::string("material.").append(name + number), i);
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }

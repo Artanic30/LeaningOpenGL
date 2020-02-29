@@ -6,6 +6,8 @@ find_package(GLUT REQUIRED)
 find_package(Assimp REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 include_directories(${GLUT_INCLUDE_DIR})
+include_directories(${ASSIMP_INCLUDE_DIR})
+
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -48,6 +50,7 @@ add_executable(11.2 Model/sample/sample.cpp utils/glad.c utils/stb_image.h utils
 set( _glfw3_HEADER_SEARCH_DIRS "/usr/local/include")
 set( _glfw3_LIB_SEARCH_DIRS "/usr/local/lib")
 set( glm_dirs "./glm")
+set( _assimp_LIB_SEARCH_DIRS "/usr/local/Cellar/assimp/5.0.1/lib")
 
 set( _glfw3_ENV_ROOT $ENV{GLFW3_ROOT} )
 if( NOT GLFW3_ROOT AND _glfw3_ENV_ROOT )
@@ -64,7 +67,8 @@ endif()
 FIND_PATH(GLFW3_INCLUDE_DIR "GLFW/glfw3.h" PATHS ${_glfw3_HEADER_SEARCH_DIRS})
 
 # Search for the library
-FIND_LIBRARY(GLFW3_LIBRARY NAMES libglfw.3.4.dylib PATHS ${_glfw3_LIB_SEARCH_DIRS} )
+FIND_LIBRARY(GLFW3_LIBRARY NAMES libglfw.3.4.dylib PATHS ${_glfw3_LIB_SEARCH_DIRS})
+FIND_LIBRARY(ASSIMP_LIBRARY NAMES libassimp.5.0.0.dylib PATHS ${_assimp_LIB_SEARCH_DIRS})
 
 #include header file directory
 include_directories(${GLFW3_INCLUDE_DIR})
@@ -83,5 +87,6 @@ foreach(i RANGE 1 10)
     endforeach()
 endforeach()
 target_link_libraries(11.1 ${GLFW3_LIBRARY})
-target_link_libraries(11.2 ${GLFW3_LIBRARY})
+target_link_libraries(11.2 ${GLFW3_LIBRARY} ${ASSIMP_LIBRARY})
+
 

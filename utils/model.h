@@ -5,7 +5,10 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#define STB_IMAGE_IMPLEMENTATION
 #include <utils/stb_image.h>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -26,7 +29,7 @@ class Model
 {
 public:
     /*  函数   */
-    Model(char *path)
+    explicit Model(char *path)
     {
         loadModel(path);
     }
