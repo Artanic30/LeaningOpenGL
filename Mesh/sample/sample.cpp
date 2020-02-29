@@ -1,11 +1,11 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <shader_c.h>
-#include <camera.h>
+#include <utils/shader_c.h>
+#include <utils/camera.h>
 // order matters
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
+#include <utils/stb_image.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -65,7 +65,7 @@ int main()
 {
     std::string root_dir = GetCurrentWorkingDir();
     int len = root_dir.length();
-    root_dir = root_dir.substr(0, len - 18) +  "/LightCaster/parallel/";
+    root_dir = root_dir.substr(0, len - 18) +  "/Mesh/sample/";
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();

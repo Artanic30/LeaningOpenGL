@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <utility>
 
 #ifdef WINDOWS
 #include <direct.h>
@@ -18,6 +19,13 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#include <utils/mesh.h>
+#include <utils/model.h>
 
 #define image_path "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/container.jpg"
 #define image_path2 "/Users/TT/Desktop/OpenGl/LearningOpenGL/asserts/awesomeface.png"
@@ -29,7 +37,7 @@ void processInput(GLFWwindow *window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 unsigned int loadTexture(const char *path);
-std::string GetCurrentWorkingDir( void );
+std::string GetCurrentWorkingDir();
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -44,14 +52,13 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 
-
 // the three arguments here decide the position of vertex and the last one decide the size of the coordinate system
 
 int main()
 {
     std::string root_dir = GetCurrentWorkingDir();
     int len = root_dir.length();
-    root_dir = root_dir.substr(0, len - 18) +  "/LightCaster/parallel/";
+    root_dir = root_dir.substr(0, len - 18) +  "/Model/sample/";
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -377,7 +384,7 @@ unsigned int loadTexture(char const * path)
     return textureID;
 }
 
-std::string GetCurrentWorkingDir( void ) {
+std::string GetCurrentWorkingDir() {
     char buff[FILENAME_MAX];
     GetCurrentDir( buff, FILENAME_MAX );
     std::string current_working_dir(buff);
